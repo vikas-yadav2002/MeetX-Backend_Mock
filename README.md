@@ -71,20 +71,20 @@ meetx-backend/
 
 - **Register User**: `POST /api/auth/register`
   - Body: `{ name, email, phone, password }`
-    ```t
+    ```
     {
   "name": "Test User",
   "email": "test@example.com",
   "phone": "1234567890",
   "password": "Password123"
 }
-```
+  ```
   - Returns: User data with JWT token
 
 - **Login User**: `POST /api/auth/login`
   - Body: `{ email, password }`
 
-  ```t
+  ```
   {
   "email": "test@example.com",
   "password": "Password123"
@@ -100,7 +100,7 @@ meetx-backend/
   ## Create a Activity First Then Access it to get its detail 
 
   # data for creating a activity
-  ```t
+  ```
   {
   "date": "2025-05-10",
   "title": "Cricket Match",
