@@ -2,6 +2,8 @@
 
 RESTful API for the MeetX application, enabling users to register, log in, view activities, and book them.
 
+---
+
 ## Technology Stack
 
 - **Runtime**: Node.js (v16+)
@@ -10,6 +12,8 @@ RESTful API for the MeetX application, enabling users to register, log in, view 
 - **Authentication**: JWT (JSON Web Tokens)
 - **Validation**: Zod
 - **Language**: TypeScript
+
+---
 
 ## Project Structure
 
@@ -45,63 +49,90 @@ meetx-backend/
 └── tsconfig.json
 ```
 
+---
+
 ## Setup and Installation
 
-1. Clone the repository
-2. Install dependencies:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/meetx-backend.git
+   cd meetx-backend
    ```
+
+2. Install dependencies:
+   ```bash
    npm install
    ```
+
 3. Create a `.env` file with the following variables:
-   ```
+   ```env
    PORT=5000
    NODE_ENV=development
    MONGODB_URI=mongodb://localhost:27017/meetx
    JWT_SECRET=your_jwt_secret_key_change_in_production
    JWT_EXPIRES_IN=3600
    ```
+
 4. Start the development server:
-   ```
+   ```bash
    npm run dev
    ```
+
+---
 
 ## API Endpoints
 
 ### Authentication
 
-- **Register User**: `POST /api/auth/register`
-  - Body: `{ name, email, phone, password }`
-    ```
-    {
-  "name": "Test User",
-  "email": "test@example.com",
-  "phone": "1234567890",
-  "password": "Password123"
-}
-  ```
-  - Returns: User data with JWT token
-
-- **Login User**: `POST /api/auth/login`
-  - Body: `{ email, password }`
-
-  ```
+#### 1. **Register User**
+- **Method**: `POST`
+- **Endpoint**: `/api/auth/register`
+- **Body**:
+  ```json
   {
-  "email": "test@example.com",
-  "password": "Password123"
-}
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "1234567890",
+    "password": "Password123"
+  }
   ```
-  - Returns: User data with JWT token
+- **Response**: User data with JWT token.
 
-- **Get User Profile**: `GET /api/auth/me`
-  - Headers: `Authorization: Bearer <token>`
-  - Returns: User data
+---
+
+#### 2. **Login User**
+- **Method**: `POST`
+- **Endpoint**: `/api/auth/login`
+- **Body**:
+  ```json
+  {
+    "email": "test@example.com",
+    "password": "Password123"
+  }
+  ```
+- **Response**: User data with JWT token.
+
+---
+
+#### 3. **Get User Profile**
+- **Method**: `GET`
+- **Endpoint**: `/api/auth/me`
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**: User data.
+
+---
 
 ### Activities
-  ## Create a Activity First Then Access it to get its detail 
 
-  # data for creating a activity
-  ```
-  {
+#### Overview
+To interact with activities, you must first create an activity. Once created, you can retrieve, update, or delete it using the provided endpoints.
+
+---
+
+#### Example Data for Creating an Activity
+```json
+{
   "date": "2025-05-10",
   "title": "Cricket Match",
   "description": "Exciting cricket match between local teams.",
@@ -109,61 +140,148 @@ meetx-backend/
   "time": "10:00 AM",
   "capacity": 100
 }
+```
 
-  ```
-- **Get All Activities**: `GET /api/activities`
-  - Public access
-  - Returns: List of all activities  
-  
+---
 
-- **Create Activity**: `POST /api/activities/createActivity`
-  - Headers: `Authorization: Bearer <token>`
-  - Body: `{ title, description, location, date, time, capacity }`
-  - Returns: Created activity
-  
+#### Endpoints
 
-- **Get Single Activity**: `GET /api/activities/:id`
-  - Public access
-  - Returns: Single activity details
+1. **Get All Activities**
+   - **Method**: `GET`
+   - **Endpoint**: `/api/activities`
+   - **Access**: Public
+   - **Description**: Retrieves a list of all activities.
+   - **Response**: List of activities.
 
+---
 
+2. **Create Activity**
+   - **Method**: `POST`
+   - **Endpoint**: `/api/activities/createActivity`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Body**:
+     ```json
+     {
+       "title": "Cricket Match",
+       "description": "Exciting cricket match between local teams.",
+       "location": "Sports Ground A",
+       "date": "2025-05-10",
+       "time": "10:00 AM",
+       "capacity": 100
+     }
+     ```
+   - **Description**: Creates a new activity.
+   - **Response**: Details of the created activity.
 
-- **Update Activity**: `PUT /api/activities/:id`
-  - Headers: `Authorization: Bearer <token>`
-  - Body: Activity fields to update
-  - Returns: Updated activity
+---
 
-- **Delete Activity**: `DELETE /api/activities/:id`
-  - Headers: `Authorization: Bearer <token>`
-  - Returns: Success message
+3. **Get Single Activity**
+   - **Method**: `GET`
+   - **Endpoint**: `/api/activities/:id`
+   - **Access**: Public
+   - **Description**: Retrieves details of a single activity by its ID.
+   - **Response**: Activity details.
+
+---
+
+4. **Update Activity**
+   - **Method**: `PUT`
+   - **Endpoint**: `/api/activities/:id`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Body**: Fields to update (e.g., `title`, `description`, etc.)
+     ```json
+     {
+       "title": "Updated Cricket Match",
+       "description": "Updated description of the match."
+     }
+     ```
+   - **Description**: Updates an existing activity.
+   - **Response**: Updated activity details.
+
+---
+
+5. **Delete Activity**
+   - **Method**: `DELETE`
+   - **Endpoint**: `/api/activities/:id`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Description**: Deletes an activity by its ID.
+   - **Response**: Success message.
+
+---
 
 ### Bookings
 
-- **Create Booking**: `POST /api/bookings`
-  - Headers: `Authorization: Bearer <token>`
-  - Body: `{ activityId }`
-  - Returns: Booking details
+1. **Create Booking**
+   - **Method**: `POST`
+   - **Endpoint**: `/api/bookings`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Body**:
+     ```json
+     {
+       "activityId": "activity_id_here"
+     }
+     ```
+   - **Response**: Booking details.
 
-- **Get User Bookings**: `GET /api/bookings/me`
-  - Headers: `Authorization: Bearer <token>`
-  - Returns: All bookings for the authenticated user
+---
 
-- **Get Single Booking**: `GET /api/bookings/:id`
-  - Headers: `Authorization: Bearer <token>`
-  - Returns: Single booking details
+2. **Get User Bookings**
+   - **Method**: `GET`
+   - **Endpoint**: `/api/bookings/me`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Response**: All bookings for the authenticated user.
 
-- **Update Booking Status**: `PATCH /api/bookings/:id`
-  - Headers: `Authorization: Bearer <token>`
-  - Body: `{ status }` (confirmed/cancelled/pending)
-  - Returns: Updated booking
+---
 
-- **Delete Booking**: `DELETE /api/bookings/:id`
-  - Headers: `Authorization: Bearer <token>`
-  - Returns: Success message
+3. **Get Single Booking**
+   - **Method**: `GET`
+   - **Endpoint**: `/api/bookings/:id`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Response**: Single booking details.
+
+---
+
+4. **Update Booking Status**
+   - **Method**: `PATCH`
+   - **Endpoint**: `/api/bookings/:id`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Body**:
+     ```json
+     {
+       "status": "confirmed"
+     }
+     ```
+   - **Response**: Updated booking.
+
+---
+
+5. **Delete Booking**
+   - **Method**: `DELETE`
+   - **Endpoint**: `/api/bookings/:id`
+   - **Headers**: 
+     - `Authorization: Bearer <token>`
+   - **Response**: Success message.
+
+---
 
 ## Security
 
-- Passwords are hashed using bcrypt
-- Authentication is handled via JWT tokens
-- Protected routes use auth middleware
-- Input validation with Zod
+- Passwords are hashed using bcrypt.
+- Authentication is handled via JWT tokens.
+- Protected routes use auth middleware.
+- Input validation is implemented with Zod.
+
+---
+
+## Testing Tips
+
+- Use tools like **Postman** or **cURL** to test the API endpoints.
+- Ensure you include the `Authorization` header with a valid JWT token for protected routes.
+- Replace `:id` in the endpoints with the actual ID of the activity or booking you want to interact with.
