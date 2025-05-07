@@ -71,10 +71,25 @@ meetx-backend/
 
 - **Register User**: `POST /api/auth/register`
   - Body: `{ name, email, phone, password }`
+    ```t
+    {
+  "name": "Test User",
+  "email": "test@example.com",
+  "phone": "1234567890",
+  "password": "Password123"
+}
+```
   - Returns: User data with JWT token
 
 - **Login User**: `POST /api/auth/login`
   - Body: `{ email, password }`
+
+  ```t
+  {
+  "email": "test@example.com",
+  "password": "Password123"
+}
+  ```
   - Returns: User data with JWT token
 
 - **Get User Profile**: `GET /api/auth/me`
@@ -82,19 +97,36 @@ meetx-backend/
   - Returns: User data
 
 ### Activities
+  ## Create a Activity First Then Access it to get its detail 
 
+  # data for creating a activity
+  ```t
+  {
+  "date": "2025-05-10",
+  "title": "Cricket Match",
+  "description": "Exciting cricket match between local teams.",
+  "location": "Sports Ground A",
+  "time": "10:00 AM",
+  "capacity": 100
+}
+
+  ```
 - **Get All Activities**: `GET /api/activities`
   - Public access
-  - Returns: List of all activities
-
-- **Get Single Activity**: `GET /api/activities/:id`
-  - Public access
-  - Returns: Single activity details
+  - Returns: List of all activities  
+  
 
 - **Create Activity**: `POST /api/activities/createActivity`
   - Headers: `Authorization: Bearer <token>`
   - Body: `{ title, description, location, date, time, capacity }`
   - Returns: Created activity
+  
+
+- **Get Single Activity**: `GET /api/activities/:id`
+  - Public access
+  - Returns: Single activity details
+
+
 
 - **Update Activity**: `PUT /api/activities/:id`
   - Headers: `Authorization: Bearer <token>`
