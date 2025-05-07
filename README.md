@@ -91,7 +91,7 @@ meetx-backend/
   - Public access
   - Returns: Single activity details
 
-- **Create Activity**: `POST /api/activities`
+- **Create Activity**: `POST /api/activities/createActivity`
   - Headers: `Authorization: Bearer <token>`
   - Body: `{ title, description, location, date, time, capacity }`
   - Returns: Created activity
